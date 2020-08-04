@@ -1,2 +1,4 @@
 # criar o templete web baseado em typescript
 yarn create react-app web  --template typescript 
+
+yarn add react-router-dom
