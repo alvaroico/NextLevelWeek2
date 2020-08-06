@@ -5,15 +5,17 @@ import convertHourMinutes from "./utils/convertHourMinutes";
 const routes = express.Router();
 
 interface ScheduleItem {
-  week_day: number,
-  from: string,
+  week_day: number;
+  from: string;
   to: string;
 }
 
 routes.post("/classes", async (request, response) => {
   const { name, avatar, whatsapp, bio, subject, cost, schedule } = request.body;
 
-  const insertedUsersIds = await db("users").insert({
+  const trx = await db.transaction();
+
+  const insertedUsersIds = await trx("users").insert({
     name,
     avatar,
     whatsapp,
@@ -22,7 +24,7 @@ routes.post("/classes", async (request, response) => {
 
   const user_id = insertedUsersIds[0];
 
-  await db("classes").insert({
+  await trx("classes").insert({
     subject,
     cost,
     user_id,
@@ -36,11 +38,12 @@ routes.post("/classes", async (request, response) => {
       week_day: scheduleItem.week_day,
       from: convertHourMinutes(scheduleItem.from),
       to: convertHourMinutes(scheduleItem.to),
-      
     };
   });
 
-  await db('class_schedule').insert(classSchedule)
+  await trx("class_schedule").insert(classSchedule);
+
+  await trx.commit();
 
   return response.send();
 });
