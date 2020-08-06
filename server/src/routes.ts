@@ -15,37 +15,44 @@ routes.post("/classes", async (request, response) => {
 
   const trx = await db.transaction();
 
-  const insertedUsersIds = await trx("users").insert({
-    name,
-    avatar,
-    whatsapp,
-    bio,
-  });
+  try {
+    const insertedUsersIds = await trx("users").insert({
+      name,
+      avatar,
+      whatsapp,
+      bio,
+    });
 
-  const user_id = insertedUsersIds[0];
+    const user_id = insertedUsersIds[0];
 
-  await trx("classes").insert({
-    subject,
-    cost,
-    user_id,
-  });
+    await trx("classes").insert({
+      subject,
+      cost,
+      user_id,
+    });
 
-  const class_id = insertedUsersIds[0];
+    const class_id = insertedUsersIds[0];
 
-  const classSchedule = schedule.map((scheduleItem: ScheduleItem) => {
-    return {
-      class_id,
-      week_day: scheduleItem.week_day,
-      from: convertHourMinutes(scheduleItem.from),
-      to: convertHourMinutes(scheduleItem.to),
-    };
-  });
+    const classSchedule = schedule.map((scheduleItem: ScheduleItem) => {
+      return {
+        class_id,
+        week_day: scheduleItem.week_day,
+        from: convertHourMinutes(scheduleItem.from),
+        to: convertHourMinutes(scheduleItem.to),
+      };
+    });
 
-  await trx("class_schedule").insert(classSchedule);
+    await trx("class_schedule").insert(classSchedule);
 
-  await trx.commit();
+    await trx.commit();
 
-  return response.send();
+    return response.status(201).send();
+  } catch (error) {
+    await trx.rollback();
+    return response.status(400).json({
+      error: "Deu errinho 😁",
+    });
+  }
 });
 
 export default routes;
