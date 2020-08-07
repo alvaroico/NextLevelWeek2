@@ -20,7 +20,12 @@ function TeacherForm() {
           <Input name="whatsapp" label="WhatsApp" />
         </fieldset>
 
-        
+        <fieldset>
+          <legend>Sobre a aula</legend>
+          <Input name="subject" label="Matéria" />
+          <Input name="cost" label="Custo da sua hora por aula" />
+        </fieldset>
+
       </main>
     </div>
   );
