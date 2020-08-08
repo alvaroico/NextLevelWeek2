@@ -15,3 +15,7 @@ yarn add @types/express -D
 
 yarn add knex sqlite3
 yarn add cors @types/cors
+
+
+---------Android e IOS---------
+yarn global add expo-cli
