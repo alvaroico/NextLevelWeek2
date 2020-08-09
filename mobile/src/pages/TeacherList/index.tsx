@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { View, ScrollView, Text, TextInput } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -19,24 +19,28 @@ function TeacherList() {
   const [weekDay, setWeekDay] = useState("");
   const [time, setTime] = useState("");
 
-  useEffect(() => {
+  function loadFavorites() {
     AsyncStorage.getItem("favorites").then((response) => {
       if (response) {
         const favoritedTeachers = JSON.parse(response);
-        const favoritedTeachersIds = favoritedTeachers.map((teacher: Teacher) => {
-          return teacher.id;
-        });
+        const favoritedTeachersIds = favoritedTeachers.map(
+          (teacher: Teacher) => {
+            return teacher.id;
+          }
+        );
 
         setFavorites(favoritedTeachersIds);
       }
     });
-  }, []);
+  }
+
 
   function handleToggleFiltersVisibile() {
     setIsFiltersVisible(!isFiltersVisible);
   }
 
   async function handleFiltersSubmit() {
+    loadFavorites();
     const response = await api.get("/classes", {
       params: {
         subject,
