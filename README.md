@@ -38,8 +38,12 @@ git https://github.com/alvaroico/NextLevelWeek2.git
 No seu terminal, siga as instruções abaixo para instalar a dependência no projeto.
 ```sh
 
-cd web
-yarn add @types/react-router-dom -D
+cd server 
+yarn install
+cd web 
+yarn install
+cd mobile 
+yarn install
 
 ```
 É necessário passar @types pois no projeto é utilizado linguagem tipada (TypeScript).
@@ -47,8 +51,16 @@ yarn add @types/react-router-dom -D
 #### Iniciando a aplicação
 ```sh
 
+cd server
+yarn start
 cd web
 yarn start
+cd mobile
+yarn start
+-
+yarn android
+-
+yarn ios
 
 ```
 
@@ -60,8 +72,8 @@ This project is licensed under the <a href="https://github.com/alvaroico/NextLev
 ## Agradecimentos
 
 * Rocketseat
-* Diego Fernandes
+* <a href="https://github.com/diego3g">Diego Fernandes<a/>
 
 ---
 
-Feito com 👌 by Álvaro Ribeiro Pereira
+Feito com 👌 by <a href="https://github.com/alvaroico">Álvaro Ribeiro Pereira<a/>
