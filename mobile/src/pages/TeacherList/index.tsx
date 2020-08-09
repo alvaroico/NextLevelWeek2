@@ -3,7 +3,7 @@ import { View, ScrollView, Text, TextInput } from "react-native";
 
 import styles from "./styles";
 import PageHeader from "../../components/PageHeader";
-import TeacherItem from "../../components/TeacherItem";
+import TeacherItem, { Teacher } from "../../components/TeacherItem";
 import { BorderlessButton, RectButton } from "react-native-gesture-handler";
 
 import { Feather } from "@expo/vector-icons";
@@ -12,7 +12,6 @@ import api from "../../services/api";
 function TeacherList() {
   const [isFiltersVisible, setIsFiltersVisible] = useState(false);
   const [teachers, setTeachers] = useState([]);
-
 
   const [subject, setSubject] = useState("");
   const [weekDay, setWeekDay] = useState("");
@@ -30,6 +29,7 @@ function TeacherList() {
         time,
       },
     });
+    setTeachers(response.data)
     handleToggleFiltersVisibile();
   }
 
@@ -93,10 +93,9 @@ function TeacherList() {
           paddingBottom: 16,
         }}
       >
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
+        {teachers.map((teacher: Teacher) => {
+          return <TeacherItem key={teacher.id} teacher={teacher}/>;
+        })}
       </ScrollView>
     </View>
   );
