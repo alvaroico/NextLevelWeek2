@@ -6,8 +6,31 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f7",
   },
   teacherList: {
-    marginTop: -60,
+    marginTop: -40,
     // padding: 16,
+  },
+  searchForm: {
+    marginBottom: 8,
+  },
+  label: {
+    color: "#d4c2ff",
+    fontFamily: "Poppins_400Regular",
+  },
+  input: {
+    height: 54,
+    backgroundColor: "#FFF",
+    borderRadius: 8,
+    justifyContent: "center",
+    paddingHorizontal: 16,
+    marginTop: 4,
+    marginBottom: 16,
+  },
+  inputGroup: {
+    flexDirection:"row",
+    justifyContent: "space-between"
+  },
+  inputBlock: {
+    width: "48%"
   },
 });
 
